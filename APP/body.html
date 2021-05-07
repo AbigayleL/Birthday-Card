@@ -1,0 +1,101 @@
+<!-- Copyright (c) 2020 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+
+<!-- should include open-gift-->
+
+<div id="nextbutton" style="display: none; z-index: 10">
+    <h2>Tap here</h2>
+  </div>
+  
+  <a-scene
+    next-button
+    physics="iterations: 1"
+    xrextras-gesture-detector
+    xrextras-almost-there
+    xrextras-loading
+    xrextras-runtime-error
+    renderer="colorManagement:true"
+    xrweb= "disableWorldTracking: true">
+    <a-assets>
+  
+        <!--Gift Box-->
+      <a-asset-item id="gift-glb" src="assets/giftbox.glb"></a-asset-item>
+      <a-asset-item id="balloons-glb" src = "assets/balloons.glb"></a-asset-item>
+      <a-asset-item id="happy_birthday-glb" src = "assets/happy_birthday.glb"></a-asset-item>
+      <a-asset-item id="cakebox-glb" src="assets/combined.glb"></a-asset-item>
+        <!--Cat card sounds-->
+        
+        <!--CARD IMAGES-->
+      <img id="birthday" src="assets/cat-card.jpg">
+      <img id="birthdaythumb" src="assets/birthdaythumb.png">
+      <img id= "songthumb" src="assets/songthumb.png">
+      
+        <!--hb Card Video-->
+      <video
+        id="HPBirthday"
+        autoplay
+        crossorigin="anonymous"
+        loop="true"
+        src="assets/Bongo.mp4">
+      </video>
+  
+       <video id="HPMusic"
+        autoplay
+        crossorigin="anonymous"
+        loop="true"
+        src="assets/Birthday_Song.mp4">
+      </video>
+    </a-assets>
+  
+  
+    <a-camera
+      position="0 4 10"
+      raycaster="objects: .cantap"
+      cursor="fuse: false; rayOrigin: mouse;">
+    </a-camera>
+  
+    <a-entity 
+      light="
+        type: directional;
+        intensity: 0.5;
+        castShadow: true;
+        shadowMapHeight:2048;
+        shadowMapWidth:2048;
+        shadowCameraTop: 20;
+        shadowCameraBottom: -20;
+        shadowCameraRight: 20;
+        shadowCameraLeft: -20;
+        target: #camera"
+      xrextras-attach="target: camera; offset: 0 15 0"
+      position="1 4.3 2.5"
+      shadow>
+    </a-entity>
+     
+    <a-light type="ambient" intensity="0.7"></a-light>
+  
+  
+    <!-- Birthday Card-->
+    <xrextras-named-image-target name="cat-card">
+      <a-scene>
+      <a-entity xrextras-one-finger-rotate id="model" gltf-model="#gift-glb" class="cantap" rotation="90 0 0"></a-entity>
+      <a-entity xrextras-one-finger-rotate id="model1" gltf-model="#happy_birthday-glb" class="cantap" rotation="90 0 0" position="0 0 1.0" visible="false"><</a-entity>
+      <a-entity gltf-model= "#balloons-glb" id="model2" position="0 0.6 -1" rotation="90 0 0" animation="property: position; to: 0 0.6 5; dur: 7000; easing: linear; loop: true" visible="false"></a-entity>
+  
+      </a-scene>
+  
+      <a-entity 
+        xrextras-play-video="video: #HPMusic; thumb: #songthumb; canstop: true" 
+        geometry="primitive: plane; height: 0.75; width: 1.0;"
+      ></a-entity>
+    </xrextras-named-image-target>
+  
+    <!--Back of Card-->
+     <xrextras-named-image-target name="v_cat">
+      <a-entity 
+        xrextras-play-video="video: #HPBirthday; thumb: #birthdaythumb; canstop: true"
+        geometry="primitive: plane; height: 0.75; width: 1;"
+      ></a-entity>
+    </xrextras-named-image-target>
+    
+  </a-scene>
+  
